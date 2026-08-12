@@ -13,7 +13,8 @@ def load_data():
 
 df = load_data()
 
-fig = px.scatter_mapbox(
+# 1. FIXED: Using scatter_map instead of scatter_mapbox
+fig = px.scatter_map(
     df,
     lat="lat",
     lon="lon",
@@ -33,24 +34,22 @@ fig = px.scatter_mapbox(
     height=700
 )
 
-fig.update_layout(mapbox_style="open-street-map")
+# 2. FIXED: Using map_style instead of mapbox_style
+fig.update_layout(map_style="open-street-map")
 fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 
-# 1. Add on_select="rerun" to capture the user's click on the map
-event = st.plotly_chart(fig, use_container_width=True, on_select="rerun")
+# 3. FIXED: Using width="stretch" instead of use_container_width=True
+event = st.plotly_chart(fig, width="stretch", on_select="rerun")
 
-# 2. Check if the user clicked a point
 if len(event.selection.get("points", [])) > 0:
-    # Get the row number of the point they clicked
-    point_index = event.selection["points"][0]["pointIndex"]
+    # 4. FIXED: Using 'point_index' instead of 'pointIndex'
+    point_index = event.selection["points"][0]["point_index"]
     
-    # Extract that specific row from your dataframe
     selected_data = df.iloc[point_index]
     
     st.divider()
     st.subheader("📋 Selected Incident Details")
     
-    # Print the data in a clean, easily copyable markdown block
     st.markdown(f"""
     **Original Input:** {selected_data['original']}  
     **Matched Address:** {selected_data['found_address']}  
