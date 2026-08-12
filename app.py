@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 st.set_page_config(layout="wide")
-st.title("📍 Incident Map")
+st.title("Incident Map")
 
 @st.cache_data
 def load_data():
@@ -48,7 +48,7 @@ if len(event.selection.get("points", [])) > 0:
     selected_data = df.iloc[point_index]
     
     st.divider()
-    st.subheader("📋 Selected Incident Details")
+    st.subheader("Selected Details")
     
     st.markdown(f"""
     **Original Input:** {selected_data['original']}  
