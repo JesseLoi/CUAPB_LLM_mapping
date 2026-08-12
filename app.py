@@ -7,7 +7,7 @@ st.title("📍 Incident Map")
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("geocodio_results.csv")
+    df = pd.read_csv("stream_map_material.csv")
     # Resetting index is important here so the click event matches the correct row
     return df.dropna(subset=['lat', 'lon']).reset_index(drop=True) 
 
